@@ -17,16 +17,22 @@ educational-chatbot
 ├── public
 │   ├── index.html          # Main HTML entry point
 │   └── styles
-│       └── main.css       # Styles for the application
+│       └── main.css        # Global styles for the application
 ├── src
 │   ├── components
-│   │   └── Chatbot.tsx    # Chatbot component
+│   │   ├── Chatbot.tsx     # Chatbot component
+│   │   ├── Login.tsx       # Login component
+│   │   ├── SignUp.tsx      # Sign-up component
+│   │   └── History.tsx     # Chat history component
 │   ├── firebase
 │   │   └── firebaseConfig.ts # Firebase configuration
 │   ├── services
 │   │   └── dialogflowService.ts # Dialogflow service functions
-│   ├── App.tsx            # Main application component
-│   └── index.tsx          # Entry point for the React application
+│   ├── styles
+│   │   └── main.css        # Component-specific styles
+│   ├── App.tsx             # Main application component
+│   └── index.tsx           # Entry point for the React application
+├── proxyServer.js          # Proxy server for Dialogflow integration
 ├── package.json            # npm configuration file
 ├── tsconfig.json           # TypeScript configuration file
 ├── vite.config.ts          # Vite configuration file
