@@ -6,6 +6,9 @@ import './Chatbot.css';
 const Chatbot: React.FC<{ sessionId: string; userId: string }> = ({ sessionId, userId }) => {
   const [messages, setMessages] = useState<{ text: string; sender: string }[]>([]);
   const [input, setInput] = useState('');
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
+  const [feedbackMessage, setFeedbackMessage] = useState('');
+  const [selectedMessage, setSelectedMessage] = useState<string | null>(null);
   const db = getFirestore(); // Initialize Firestore
 
   const saveMessageToFirestore = async (text: string, sender: string) => {
@@ -19,6 +22,21 @@ const Chatbot: React.FC<{ sessionId: string; userId: string }> = ({ sessionId, u
       });
     } catch (error) {
       console.error('Error saving message to Firestore:', error);
+    }
+  };
+
+  const saveFeedbackToFirestore = async (message: string, feedback: string) => {
+    try {
+      await addDoc(collection(db, 'feedback'), {
+        sessionId,
+        userId,
+        message,
+        feedback,
+        timestamp: new Date(),
+      });
+      alert('Thank you for your feedback!');
+    } catch (error) {
+      console.error('Error saving feedback to Firestore:', error);
     }
   };
 
@@ -51,6 +69,19 @@ const Chatbot: React.FC<{ sessionId: string; userId: string }> = ({ sessionId, u
     setInput('');
   };
 
+  const handleFeedback = (message: string) => {
+    setSelectedMessage(message);
+    setShowFeedbackModal(true);
+  };
+
+  const submitFeedback = () => {
+    if (selectedMessage && feedbackMessage.trim() !== '') {
+      saveFeedbackToFirestore(selectedMessage, feedbackMessage);
+      setFeedbackMessage('');
+      setShowFeedbackModal(false);
+    }
+  };
+
   // Add an initial "Hello..." message when the component loads
   useEffect(() => {
     const initialBotMessage = { text: 'Hello! How can I assist you today?', sender: 'bot' };
@@ -66,6 +97,14 @@ const Chatbot: React.FC<{ sessionId: string; userId: string }> = ({ sessionId, u
         {messages.map((message, index) => (
           <div key={index} className={`message ${message.sender}`}>
             {message.text}
+            {message.sender === 'bot' && (
+              <button
+                className="feedback-button"
+                onClick={() => handleFeedback(message.text)}
+              >
+                Give Feedback
+              </button>
+            )}
           </div>
         ))}
       </div>
@@ -79,6 +118,23 @@ const Chatbot: React.FC<{ sessionId: string; userId: string }> = ({ sessionId, u
         />
         <button onClick={handleSendMessage}>Send</button>
       </div>
+
+      {/* Feedback Modal */}
+      {showFeedbackModal && (
+        <div className="feedback-modal">
+          <div className="feedback-modal-content">
+            <h3>Provide Feedback</h3>
+            <p>Message: {selectedMessage}</p>
+            <textarea
+              value={feedbackMessage}
+              onChange={(e) => setFeedbackMessage(e.target.value)}
+              placeholder="Enter your feedback here..."
+            />
+            <button onClick={submitFeedback}>Submit</button>
+            <button onClick={() => setShowFeedbackModal(false)}>Cancel</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
