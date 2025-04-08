@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { sendMessageToDialogflow } from '../services/dialogflowService';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import './Chatbot.css';
@@ -50,6 +50,15 @@ const Chatbot: React.FC<{ sessionId: string; userId: string }> = ({ sessionId, u
 
     setInput('');
   };
+
+  // Add an initial "Hello..." message when the component loads
+  useEffect(() => {
+    const initialBotMessage = { text: 'Hello! How can I assist you today?', sender: 'bot' };
+    setMessages([initialBotMessage]);
+
+    // Save the initial bot message to Firestore
+    saveMessageToFirestore(initialBotMessage.text, 'bot');
+  }, []); // Empty dependency array ensures this runs only once when the component mounts
 
   return (
     <div className="chatbot">
