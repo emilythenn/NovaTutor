@@ -117,7 +117,7 @@
 /* Chatbot Section */
 .chatbot-section {
   flex: 1;
-  max-width: 50%; /* Adjust width as needed */
+  max-width: 100%; /* Adjust width as needed */
   background: #fff;
   padding: 20px;
   border-radius: 8px;
@@ -153,3 +153,18 @@
 .footer-button:hover {
   background-color: #0056b3;
 }
+
+.logout-button {
+  padding: 8px 16px;
+  background-color: #ff4d4d; /* Red color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.logout-button:hover {
+  background-color: #cc0000; /* Darker red on hover */
+}
+
