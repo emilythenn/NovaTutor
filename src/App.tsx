@@ -5,6 +5,9 @@ import './App.css';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import './firebase/firebaseConfig'; // Import Firebase initialization
 
+// Import the History component
+import History from './components/History';
+
 // Login Component
 interface LoginProps {
   setIsLoggedIn: (value: boolean) => void;
@@ -84,9 +87,19 @@ const App: React.FC = () => {
   const [showLoginPage, setShowLoginPage] = useState(false); // Tracks if the login page is shown
   const [showSignUpPage, setShowSignUpPage] = useState(false); // Tracks if the sign-up page is shown
   const [showModal, setShowModal] = useState(true); // Tracks if the modal is shown
+  const [showHistory, setShowHistory] = useState(false); // Tracks if the history page is shown
+  const [sessionId, setSessionId] = useState(() => Date.now().toString()); // Generate a unique session ID
+
+  const auth = getAuth();
+  const userId = auth.currentUser?.uid || 'anonymous'; // Use 'anonymous' if the user is not logged in
 
   const handleStayAnonymous = () => {
     setShowModal(false); // Close the modal
+  };
+
+  const createNewChatbot = () => {
+    setSessionId(Date.now().toString()); // Generate a new session ID
+    setShowHistory(false); // Ensure the chatbot view is shown
   };
 
   return (
@@ -101,6 +114,9 @@ const App: React.FC = () => {
           setShowLoginPage={setShowLoginPage}
           setShowSignUpPage={setShowSignUpPage}
         />
+      ) : showHistory ? (
+        // Show the history page
+        <History userId={userId} /> // Pass the userId to the History component
       ) : (
         // Show the chatbot page
         <>
@@ -155,10 +171,320 @@ const App: React.FC = () => {
                 Sign Up
               </button>
             </div>
+<div className="header-buttons">
+<button
+                className="login-button"
+                onClick={() => setShowLoginPage(true)} // Navigate to the login page
+              >
+                Login
+              </button>
+              <button
+                className="login-button"
+                onClick={() => setShowSignUpPage(true)} // Navigate to the sign-up page
+              >
+                Sign Up
+              </button>
+            </div>
+            <div className="header-buttons">
+              <button
+                className="login-button"
+                onClick={() => setShowLoginPage(true)} // Navigate to the login page
+              >
+                Login
+              </button>
+              <button
+                className="login-button"
+                onClick={() => setShowSignUpPage(true)} // Navigate to the sign-up page
+              >
+                Sign Up
+              </button>
+            </div>
+            <div className="header-buttons">
+              <button
+                className="login-button"
+                onClick={() => setShowLoginPage(true)} // Navigate to the login page
+              >
+                Login
+              </button>
+              <button
+                className="login-button"
+                onClick={() => setShowSignUpPage(true)} // Navigate to the sign-up page
+              >
+                Sign Up
+              </button>
+            </div>
+            <div className="header-buttons">
+              <button
+                className="login-button"
+                onClick={() => setShowLoginPage(true)} // Navigate to the login page
+              >
+                Login
+              </button>
+              <button
+                className="login-button"
+                onClick={() => setShowSignUpPage(true)} // Navigate to the sign-up page
+              >
+                Sign Up
+              </button>
+            </div>
+            <div className="header-buttons">
+              <button
+                className="login-button"
+                onClick={() => setShowLoginPage(true)} // Navigate to the login page
+              >
+                Login
+              </button>
+              <button
+                className="login-button"
+                onClick={() => setShowSignUpPage(true)} // Navigate to the sign-up page
+              >
+                Sign Up
+              </button>
+            </div>
+            <div className="header-buttons">
+              <button
+                className="login-button"
+                onClick={() => setShowLoginPage(true)} // Navigate to the login page
+              >
+                Login
+              </button>
+              <button
+                className="login-button"
+                onClick={() => setShowSignUpPage(true)} // Navigate to the sign-up page
+              >
+                Sign Up
+              </button>
+            </div>
+            <div className="header-buttons">
+              <button
+                className="login-button"
+                onClick={() => setShowLoginPage(true)} // Navigate to the login page
+              >
+                Login
+              </button>
+              <button
+                className="login-button"
+                onClick={() => setShowSignUpPage(true)} // Navigate to the sign-up page
+              >
+                Sign Up
+              </button>
+            </div>
+<div className="header-buttons">
+              <button
+                className="login-button"
+                onClick={() => setShowLoginPage(true)} // Navigate to the login page
+              >
+                Login
+              </button>
+              <button
+                className="login-button"
+                onClick={() => setShowSignUpPage(true)} // Navigate to the sign-up page
+              >
+                Sign Up
+              </button>
+            </div>
+            <div className="header-buttons">
+              <button
+                className="login-button"
+                onClick={() => setShowLoginPage(true)} // Navigate to the login page
+              >
+                Login
+              </button>
+              <button
+                className="login-button"
+                onClick={() => setShowSignUpPage(true)} // Navigate to the sign-up page
+              >
+                Sign Up
+              </button>
+            </div>
+            <div className="header-buttons">
+              <button
+                className="login-button"
+                onClick={() => setShowLoginPage(true)} // Navigate to the login page
+              >
+                Login
+              </button>
+              <button
+                className="login-button"
+                onClick={() => setShowSignUpPage(true)} // Navigate to the sign-up page
+              >
+                Sign Up
+              </button>
+            </div>
+            <div className="header-buttons">
+              <button
+                className="login-button"
+                onClick={() => setShowLoginPage(true)} // Navigate to the login page
+              >
+                Login
+              </button>
+              <button
+                className="login-button"
+                onClick={() => setShowSignUpPage(true)} // Navigate to the sign-up page
+              >
+                Sign Up
+              </button>
+            </div>
+            <div className="header-buttons">
+              <button
+                className="login-button"
+                onClick={() => setShowLoginPage(true)} // Navigate to the login page
+              >
+                Login
+              </button>
+              <button
+                className="login-button"
+                onClick={() => setShowSignUpPage(true)} // Navigate to the sign-up page
+              >
+                Sign Up
+              </button>
+            </div>
+            <div className="header-buttons">
+              <button
+                className="login-button"
+                onClick={() => setShowLoginPage(true)} // Navigate to the login page
+              >
+                Login
+              </button>
+              <button
+                className="login-button"
+                onClick={() => setShowSignUpPage(true)} // Navigate to the sign-up page
+              >
+                Sign Up
+              </button>
+            </div>
+            <div className="header-buttons">
+              <button
+                className="login-button"
+                onClick={() => setShowLoginPage(true)} // Navigate to the login page
+              >
+                Login
+              </button>
+              <button
+                className="login-button"
+                onClick={() => setShowSignUpPage(true)} // Navigate to the sign-up page
+              >
+                Sign Up
+              </button>
+            </div>
+        <div className="header-buttons">
+              <button
+                className="login-button"
+                onClick={() => setShowLoginPage(true)} // Navigate to the login page
+              >
+                Login
+              </button>
+              <button
+                className="login-button"
+                onClick={() => setShowSignUpPage(true)} // Navigate to the sign-up page
+              >
+                Sign Up
+              </button>
+            </div>
+            <div className="header-buttons">
+              <button
+                className="login-button"
+                onClick={() => setShowLoginPage(true)} // Navigate to the login page
+              >
+                Login
+              </button>
+              <button
+                className="login-button"
+                onClick={() => setShowSignUpPage(true)} // Navigate to the sign-up page
+              >
+                Sign Up
+              </button>
+            </div>
+            <div className="header-buttons">
+              <button
+                className="login-button"
+                onClick={() => setShowLoginPage(true)} // Navigate to the login page
+              >
+                Login
+              </button>
+              <button
+                className="login-button"
+                onClick={() => setShowSignUpPage(true)} // Navigate to the sign-up page
+              >
+                Sign Up
+              </button>
+            </div>
+            <div className="header-buttons">
+              <button
+                className="login-button"
+                onClick={() => setShowLoginPage(true)} // Navigate to the login page
+              >
+                Login
+              </button>
+              <button
+                className="login-button"
+                onClick={() => setShowSignUpPage(true)} // Navigate to the sign-up page
+              >
+                Sign Up
+              </button>
+            </div>
+            <div className="header-buttons">
+              <button
+                className="login-button"
+                onClick={() => setShowLoginPage(true)} // Navigate to the login page
+              >
+                Login
+              </button>
+              <button
+                className="login-button"
+                onClick={() => setShowSignUpPage(true)} // Navigate to the sign-up page
+              >
+                Sign Up
+              </button>
+            </div>
+            <div className="header-buttons">
+              <button
+                className="login-button"
+                onClick={() => setShowLoginPage(true)} // Navigate to the login page
+              >
+                Login
+              </button>
+              <button
+                className="login-button"
+                onClick={() => setShowSignUpPage(true)} // Navigate to the sign-up page
+              >
+                Sign Up
+              </button>
+            </div>
+            <div className="header-buttons">
+              <button
+                className="login-button"
+                onClick={() => setShowLoginPage(true)} // Navigate to the login page
+              >
+                Login
+              </button>
+              <button
+                className="login-button"
+                onClick={() => setShowSignUpPage(true)} // Navigate to the sign-up page
+              >
+                Sign Up
+              </button>
+            </div>
           </header>
 
           {/* Chatbot Section */}
-          <Chatbot />
+          <Chatbot sessionId={sessionId} userId={userId} />
+
+          {/* Footer Section */}
+          <footer className="app-footer">
+            <button
+              className="footer-button"
+              onClick={createNewChatbot} // Create a new chatbot session
+            >
+              Create New Chatbot
+            </button>
+            <button
+              className="footer-button"
+              onClick={() => setShowHistory(true)} // Navigate to the history page
+            >
+              View History
+            </button>
+          </footer>
         </>
       )}
     </div>

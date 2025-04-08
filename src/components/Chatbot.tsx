@@ -1,15 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { sendMessageToDialogflow } from '../services/dialogflowService';
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import './Chatbot.css';
 
-const Chatbot: React.FC = () => {
+const Chatbot: React.FC<{ sessionId: string; userId: string }> = ({ sessionId, userId }) => {
   const [messages, setMessages] = useState<{ text: string; sender: string }[]>([]);
   const [input, setInput] = useState('');
+  const db = getFirestore(); // Initialize Firestore
 
-  useEffect(() => {
-    const initialMessage = { text: 'Hi! How can I assist you today?', sender: 'bot' };
-    setMessages([initialMessage]);
-  }, []);
+  const saveMessageToFirestore = async (text: string, sender: string) => {
+    try {
+      await addDoc(collection(db, 'chatHistory'), {
+        sessionId,
+        userId,
+        text,
+        sender,
+        timestamp: new Date(), // Add a timestamp for sorting
+      });
+    } catch (error) {
+      console.error('Error saving message to Firestore:', error);
+    }
+  };
 
   const handleSendMessage = async () => {
     if (input.trim() === '') return;
@@ -17,14 +28,24 @@ const Chatbot: React.FC = () => {
     const userMessage = { text: input, sender: 'user' };
     setMessages((prevMessages) => [...prevMessages, userMessage]);
 
+    // Save user message to Firestore
+    await saveMessageToFirestore(input, 'user');
+
     try {
-      const response = await sendMessageToDialogflow(input);
-      const botMessage = { text: response, sender: 'bot' };
+      // Fetch the response from Dialogflow
+      const botResponse = await sendMessageToDialogflow(input);
+      const botMessage = { text: botResponse, sender: 'bot' };
       setMessages((prevMessages) => [...prevMessages, botMessage]);
+
+      // Save bot message to Firestore
+      await saveMessageToFirestore(botResponse, 'bot');
     } catch (error) {
       console.error('Error communicating with Dialogflow:', error);
-      const errorMessage = { text: 'Oops! Something went wrong. Please try again later.', sender: 'bot' };
+      const errorMessage = { text: 'Oops! Something went wrong.', sender: 'bot' };
       setMessages((prevMessages) => [...prevMessages, errorMessage]);
+
+      // Save error message to Firestore
+      await saveMessageToFirestore('Oops! Something went wrong.', 'bot');
     }
 
     setInput('');

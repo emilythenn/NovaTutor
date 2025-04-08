@@ -94,3 +94,62 @@
 .modal-button:hover {
   background-color: #0056b3;
 }
+
+/* Main Layout */
+.main-layout {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* History Section */
+.history-section {
+  flex: 1;
+  max-width: 40%; /* Adjust width as needed */
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Chatbot Section */
+.chatbot-section {
+  flex: 1;
+  max-width: 50%; /* Adjust width as needed */
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer Section */
+.app-footer {
+  position: fixed; /* Fix the footer at the bottom */
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #f4f4f4;
+  border-top: 1px solid #ddd;
+  display: flex;
+  justify-content: center; /* Center the buttons horizontally */
+  gap: 20px; /* Add spacing between buttons */
+  padding: 10px 0;
+  z-index: 1000; /* Ensure it stays above other elements */
+}
+
+/* Footer Buttons */
+.footer-button {
+  padding: 10px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.footer-button:hover {
+  background-color: #0056b3;
+}
